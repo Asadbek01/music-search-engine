@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { Button, Card, Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { MusicSearchResponse, Track, MusicData } from '../type/Interface';
+import { MusicSearchResponse, Track } from '../type/Interface';
 import { BsSearch } from "react-icons/bs";
 import { Detail } from './Detail';
 const url = "https://striveschool-api.herokuapp.com/api/deezer/search?q="
@@ -10,7 +10,7 @@ const Search = () => {
     const [query, setQuery] = useState("")
 
     const [music, setMusic] = useState<Track[]>([])
-    const [selectMusic, setSelectMusic] = useState<MusicData | null>(null)
+    const [selectMusic, setSelectMusic] = useState<Track | null>(null)
 
 
 const changeMusic = (music: any) => setSelectMusic(music) 
@@ -74,8 +74,10 @@ const changeMusic = (music: any) => setSelectMusic(music)
                         }
                     </Col>
                     <Col xs={8}>
-                        <Detail />
-                        {/* selectMusic={selectMusic} */}
+                      { 
+                       selectMusic &&  <Detail  selectMusic={selectMusic} />
+
+}
                     </Col>
                 </Row>
             </Container>

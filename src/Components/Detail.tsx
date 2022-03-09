@@ -3,16 +3,21 @@ import { StdioNull } from 'child_process';
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { NonNullExpression } from 'typescript';
-import {MusicData, Track } from '../type/Interface';
+import {Track } from '../type/Interface';
 
-export const Detail = () => {
+ interface DetailProps {
+  selectMusic: Track
+  
+}
+export const Detail = ({selectMusic} :DetailProps) => {
  
-  const [music, setMusic] = useState <Track[]>([])
+  const [music, setMusic] = useState <Track| null>(null)
+  
 
 
-  // useEffect(()=>{
-  //    setMusic(selectMusic);
-  //     }, [selectMusic])
+  useEffect(()=>{
+     setMusic(selectMusic);
+      }, [selectMusic])
       
 
   return (
@@ -21,7 +26,33 @@ export const Detail = () => {
       <Row>
         <Col xs={6}>
           <h2>Select a music</h2>
-{/* <h2>{selectMusic.album.cover_small}</h2> */}
+          <div className="mt-3">
+        {music ? (
+          <>
+          <Container>
+            <Row>
+              <Col sm={12}>
+                <h1>{music.title}</h1>
+              </Col>
+            </Row>
+            <Row className="mt-3">
+              
+              <Col className="mx-5" sm={8}>
+                <div>
+                  <span className="font-weight-bold">Description:</span>
+                  <p>{ music.title} </p>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+          </>
+        ) : (
+          <Row>
+
+          </Row>
+          )}
+      </div>
+   
         </Col>
       </Row>
     </Container>
