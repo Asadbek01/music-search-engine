@@ -50,7 +50,4 @@ export interface Artist {
     type:           string;
 }
 
-export interface MusicData {
-    selectMusic: Track
-    
-  }
+

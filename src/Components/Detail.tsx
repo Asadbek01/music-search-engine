@@ -9,15 +9,15 @@ import {Track } from '../type/Interface';
   selectMusic: Track
   
 }
-export const Detail = ({selectMusic} :DetailProps) => {
+export const Detail = () => {
  
   const [music, setMusic] = useState <Track| null>(null)
   
 
 
   useEffect(()=>{
-     setMusic(selectMusic);
-      }, [selectMusic])
+    
+      }, [])
       
 
   return (

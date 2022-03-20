@@ -1,6 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { Button, Card, Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { MusicSearchResponse, Track } from '../type/Interface';
 import { BsSearch } from "react-icons/bs";
 import { Detail } from './Detail';
@@ -8,7 +8,7 @@ const url = "https://striveschool-api.herokuapp.com/api/deezer/search?q="
 
 const Search = () => {
     const [query, setQuery] = useState("")
-
+const navigate = useNavigate()
     const [music, setMusic] = useState<Track[]>([])
     const [selectMusic, setSelectMusic] = useState<Track | null>(null)
 
@@ -31,6 +31,7 @@ const changeMusic = (music: any) => setSelectMusic(music)
     }
     return (
         <>
+                    <Container>
             <Form onSubmit={handleSubmit} className='formsearch'  >
 
                 <InputGroup>
@@ -47,40 +48,35 @@ const changeMusic = (music: any) => setSelectMusic(music)
                 </InputGroup>
 
             </Form>
-            <Container>
                 <Row>
-                    <Col xs={4}>
                         {
                             music.map((data) => (
+                                <Col xs={3} className='ml-2'>
                                 
                                 
-                                <Card className='m-3 mb-2 text-secondary' style={{ width: '15rem' }}>
+                                <Card className='mt-5 ' style={{ width: '15rem' }}>
                                     <Card.Img className='img-fluid' src={data?.album.cover_medium} alt='1' />
                                     <Card.Body>
-                                        <Card.Title onClick={()=> changeMusic(data)}>{data.title_short}</Card.Title>
+                                        {/* <Card.Title onClick={()=> changeMusic(data)}>{data.title_short}</Card.Title>
                                         <Card.Text>
-                                            {data.title}
+                                        {data.title}
                                         </Card.Text>
-
-                                   
+                                        
+                                        
                                         <div className='d-flex justify-content-between'>
-                                            <a href={data.preview} className='btn btn-primary'>Listen</a>
-                                        </div>
+                                        <a href={data.preview} className='btn btn-primary'>Listen</a>
+                                        </div> */}
+                                <p style={{color: 'black', cursor: "pointer"}} onClick={()=> changeMusic(data)}>{data.title_short}</p>
                                     </Card.Body>
                                 </Card>
+                    </Col>
                             ) 
                             
                             )
                         }
-                    </Col>
-                    <Col xs={8}>
-                      { 
-                       selectMusic &&  <Detail  selectMusic={selectMusic} />
-
-}
-                    </Col>
                 </Row>
             </Container>
+
 
         </>
     )
